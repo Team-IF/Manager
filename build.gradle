@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
+    }
+}
+
+plugins {
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+    id 'java'
+}
+
+group 'io.teamif'
+version '0.0.0.1-DEV'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+jar {
+    finalizedBy shadowJar
+    manifest {
+        attributes 'Main-Class': 'io.teamif.manager.Bot'
+    }
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    implementation 'net.dv8tion:JDA:4.2.0_208'
+    implementation 'com.jagrosh:jda-utilities-command:3.0.4'
+}
