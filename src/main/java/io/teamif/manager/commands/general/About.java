@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.awt.*;
 
 public class About extends Command {
-    private final static String embed_color = new ConfigHelper().main().getProperty("embed_color");
+    private final static String embed_color = new ConfigHelper().with("config.ini").getProperty("embed_color");
     private String oauthLink;
 
     public About()

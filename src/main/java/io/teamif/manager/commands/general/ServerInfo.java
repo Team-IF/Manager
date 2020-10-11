@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 public class ServerInfo extends Command {
     public final static String LINESTART = "\u25AB";
     private final static String GUILD_EMOJI = "\uD83D\uDDA5";
-    private final static String embed_color = new ConfigHelper().main().getProperty("embed_color");
+    private final static String embed_color = new ConfigHelper().with("config.ini").getProperty("embed_color");
 
     public ServerInfo() {
         this.name = "서버정보";

@@ -36,9 +36,9 @@ public class Bot extends ListenerAdapter {
 
     public static void main(String[] args) throws LoginException {
         ConfigHelper configHelper = new ConfigHelper();
-        final String token = configHelper.main().getProperty("token");
-        final String prefix = configHelper.main().getProperty("prefix");
-        final String owner = configHelper.main().getProperty("owner");
+        final String token = configHelper.with("config.ini").getProperty("token");
+        final String prefix = configHelper.with("config.ini").getProperty("prefix");
+        final String owner = configHelper.with("config.ini").getProperty("owner");
 
         EventWaiter waiter = new EventWaiter();
 

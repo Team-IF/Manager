@@ -10,8 +10,8 @@ import java.awt.*;
 import static io.teamif.manager.Bot.commands;
 
 public class Help extends Command {
-    private final static String embed_color = new ConfigHelper().main().getProperty("embed_color");
-    final static String prefix = new ConfigHelper().main().getProperty("prefix");
+    private final static String embed_color = new ConfigHelper().with("config.ini").getProperty("embed_color");
+    final static String prefix = new ConfigHelper().with("config.ini").getProperty("prefix");
 
     public Help() {
         this.name = "도움";
