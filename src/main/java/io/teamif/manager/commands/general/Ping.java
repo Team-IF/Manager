@@ -2,8 +2,14 @@ package io.teamif.manager.commands.general;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import io.teamif.manager.helper.ConfigHelper;
+import net.dv8tion.jda.api.EmbedBuilder;
+
+import java.awt.*;
 
 public class Ping extends Command {
+    private final static String embed_color = new ConfigHelper().with("config.ini").getProperty("embed_color");
+
     public Ping() {
         this.name = "핑";
         this.aliases = new String[]{"ping"};
@@ -14,6 +20,9 @@ public class Ping extends Command {
 
     @Override
     protected void execute(CommandEvent msg) {
-        msg.getChannel().sendMessage("Ping: " + msg.getJDA().getGatewayPing() + "ms").queue();
+        EmbedBuilder builder = new EmbedBuilder();
+        builder.setColor(Color.decode(embed_color));
+        builder.addField("Ping","**" + msg.getJDA().getGatewayPing() + "**ms",true);
+        msg.getChannel().sendMessage(builder.build()).queue();
     }
 }

@@ -48,14 +48,11 @@ public class About extends Command {
 //                .append("\n저는 Java로 만들어졌어요!").append("\n`").append(msg.getClient().getTextualPrefix()).append(msg.getClient().getHelpWord())
 //                .append("`를 입력해서 제 명령어들을 보세요!\n").append(join || inv ? invline : "").append("\n\n저는 이런것들을 할 수 있어요!: ```css\n- 일반적인 명령어```");
 //        builder.setDescription(descr);
-        if (msg.getJDA().getShardInfo() == null)
-        {
+        if (msg.getJDA().getShardInfo() == null) {
             builder.addField("상태", msg.getJDA().getGuilds().size() + " 서버\n1 샤드", true);
             builder.addField("사용자 수", msg.getJDA().getUsers().size() + " 명\n" + msg.getJDA().getGuilds().stream().mapToInt(g -> g.getMembers().size()).sum(), true);
             builder.addField("채널 수", msg.getJDA().getTextChannels().size() + " 개\n" + msg.getJDA().getVoiceChannels().size(), true);
-        }
-        else
-        {
+        } else {
             builder.addField("종합적 상태", (msg.getClient()).getTotalGuilds() + " 서버\n샤드: " + (msg.getJDA().getShardInfo().getShardId() + 1)
                     + "/" + msg.getJDA().getShardInfo().getShardTotal(), true);
             builder.addField("이 샤드 정보", msg.getJDA().getUsers().size() + " 명\n" + msg.getJDA().getGuilds().size() + " 개의 서버", true);

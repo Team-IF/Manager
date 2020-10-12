@@ -6,6 +6,7 @@ import io.teamif.manager.helper.ConfigHelper;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.awt.*;
+import java.util.Arrays;
 
 import static io.teamif.manager.Bot.commands;
 
@@ -25,28 +26,24 @@ public class Help extends Command {
     public void execute(CommandEvent msg) {
         if (msg.getArgs().split(" ").length > 1) {
             msg.reply("너무 많은 인자를 주셨어요!" + getHelp());
-        }
-        else {
+        } else {
             if (msg.getArgs().equals("")) {
                 EmbedBuilder eb = new EmbedBuilder();
                 eb.setColor(Color.decode(embed_color));
                 eb.setDescription("`" + prefix + "help [명령어]`를 입력해서 명령어의 도움말을 받아보세요!");
 
-                String general = ">>> ";
-                String moderation = ">>> ";
+                StringBuilder general = new StringBuilder(">>> ");
 
                 for (Command command : commands) {
                     if (!command.isOwnerCommand()) {
-                        if (command.getCategory().getName() == "일반") {
-                            general += command.getName() + " - " +
-                                    command.getHelp() + "\n";
+                        if (command.getCategory().getName().equals("일반")) {
+                            general.append(command.getName()).append(" - ").append(command.getHelp()).append("\n");
                         }
                     }
                 }
-                eb.addField("일반 명령어", general, true);
+                eb.addField("일반 명령어", general.toString(), true);
                 msg.reply(eb.build());
-            }
-            else {
+            } else {
                 Command cmd = null;
                 for (Command command : commands) {
                     if (msg.getArgs().split(" ")[0].equalsIgnoreCase(command.getName())) {
@@ -54,12 +51,24 @@ public class Help extends Command {
                     }
                 }
                 if (cmd == null) {
-                    msg.reply("요청한 명령어가 없어요!" + getHelp());
+                    msg.reply("요청한 명령어가 없어요!");
                 } else {
                     EmbedBuilder eb = new EmbedBuilder();
                     eb.setColor(Color.decode(embed_color));
                     eb.setTitle(cmd.getName());
                     eb.setDescription(cmd.getHelp());
+
+                    String tempAliasesString = "";
+
+                    if (cmd.getAliases().length == 0) {
+                        tempAliasesString = "별칭(Aliases)이(가) 없습니다.";
+                    } else {
+                        for (int i = 0; i < cmd.getAliases().length; i++) {
+                            tempAliasesString += "**``" + cmd.getAliases()[i] + "``**, ";
+                        }
+                    }
+
+                    eb.addField("별칭(Aliases)", tempAliasesString.substring(0, tempAliasesString.length() - 2), true);
 
                     if (cmd.getArguments() != null) {
                         eb.addField("인자", cmd.getArguments(), true);
