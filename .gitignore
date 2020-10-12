@@ -1,9 +1,10 @@
 # Cache folders
 .gradle/
 
-# User-specific folders
+# User-specific files / folders
 .idea/
 *.iml
+config.ini
 
 # Build outputs
 build/
