@@ -13,3 +13,8 @@ out/
 
 # Exclude gradle-wrapper.jar
 !gradle-wrapper.jar
+
+# MacOS File System
+.DS_Store
+
+config.ini
